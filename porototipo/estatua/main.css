@@ -1,0 +1,56 @@
+.texto {
+    position: absolute;
+    font-size: 26px;
+    left: 630px;
+    top: 0px;
+    right: 80px;
+}
+
+.contenedor {
+    position: relative;
+    left: 43px;
+    top: 46px;
+}
+
+.mapa-img {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.boton {
+    position: relative;
+    left: 630px;
+    top: 170px;
+}
+
+/*
+estas ultimas 2 no se si están bien, no se como hacer que el flask me pesque la carpeta de staticcccccccc
+    edit: ya lo arreglé, saludos 
+*/
+.abt-pag {
+    position: relative;
+    width: 600px;
+    left: 43px;
+    top: 46px;
+}
+
+.abt-txt {
+    position: absolute;
+    font-size: 26px;
+    top: 0px;
+}
+
+.busqueda {
+    position: absolute;
+    top: 470px;
+}
+
+input {
+    height: 45px;
+    width: 592px;
+    border-radius: 30px;
+    font-size: 14px;
+    padding: 0 22px;
+    border: 2px solid #adadad;
+}

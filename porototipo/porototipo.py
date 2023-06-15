@@ -21,10 +21,15 @@ def pag():
 def about():
     return render_template("about.html")
 
+'''     ya le puse el mapa a la página principal asi que esto no es necesario'''
 @app.route("/map")
 def map():
     return render_template("casa.html")
-
+'''
+@app.route("/map2")
+def map2():
+    return render_template("mapabueno.html")
+'''
 # acá para que la página abra
 if __name__ == "__main__":
     # debug=True para que se pueda ver la página mientras editamos cosas

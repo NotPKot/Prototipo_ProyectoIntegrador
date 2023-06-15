@@ -18,14 +18,21 @@
     top: 0;
 }
 
+#map {
+    width: 600px;
+    height: 425px;
+    position: absolute;
+}
+
 .boton {
-    position: relative;
+    position: absolute;
     left: 630px;
     top: 170px;
+    right: 600px;
 }
 
 /*
-estas ultimas 2 no se si están bien, no se como hacer que el flask me pesque la carpeta de staticcccccccc
+estas ultimas no se si están bien, no se como hacer que el flask me pesque la carpeta de staticcccccccc
     edit: ya lo arreglé, saludos 
 */
 .abt-pag {
@@ -54,3 +61,12 @@ input {
     padding: 0 22px;
     border: 2px solid #adadad;
 }
+
+.navbar-brand {
+    font-family: Helvetica;
+}
+
+.nav-link {
+    font-family: 'Franklin Gothic Medium';
+}
+

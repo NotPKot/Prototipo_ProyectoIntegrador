@@ -1,21 +1,19 @@
 .texto {
     position: absolute;
     font-size: 26px;
-    left: 630px;
-    top: 0px;
+    left: 686px;
+    top: 46px;
     right: 80px;
 }
 
 .contenedor {
     position: relative;
-    left: 43px;
-    top: 46px;
 }
 
 .mapa-img {
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 43px;
+    top: 46px;
 }
 
 #map {
@@ -26,10 +24,11 @@
 
 .boton {
     position: absolute;
-    left: 630px;
-    top: 170px;
-    right: 600px;
+    left: 686px;
+    top: 256px;
+    right: 60px;
 }
+
 
 /*
 estas ultimas no se si están bien, no se como hacer que el flask me pesque la carpeta de staticcccccccc
@@ -50,7 +49,8 @@ estas ultimas no se si están bien, no se como hacer que el flask me pesque la c
 
 .busqueda {
     position: absolute;
-    top: 470px;
+    top: 516px;
+    left: 43px;
 }
 
 input {
@@ -70,3 +70,31 @@ input {
     font-family: 'Franklin Gothic Medium';
 }
 
+.pie {
+    position: relative;
+    top: 839px;
+    bottom: 0px;
+    font-size: 12px;
+}
+
+.contenedor-pie {
+    height: 30px;
+}
+
+.foot-link {
+    background-color: #7a1d1a;
+    padding: 5px 10px;
+    border-radius: 10px;
+    bottom: 50%;
+}
+
+.TyS {
+    position: relative;
+    left: 43px;
+    right: 43px;
+    height: 0;
+    width: calc(100% - 86px);
+    top: 46px;
+    bottom: 0%;
+    font-size: 18px;
+}

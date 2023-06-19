@@ -1,24 +1,29 @@
-{% extends "layout.html" %}
-
-{% block content %}
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuTu</title>
+    <title>mapa pelao</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <link rel="stylesheet" type="text/css" href="estatua/main.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@1.16.0/dist/Control.Geocoder.js"></script>
+    <style>
+        body {
+            margin: 10px;
+            padding: 0;
+        }
 
-
+        #map {
+            width: 100%;
+            height: calc(100vh - 20px);
+        }
+    </style>
 
 </head>
 
@@ -26,8 +31,7 @@
     <div class="contenedor">
         <div id="map" class="mapa-img"></div>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin="" float:left></script>
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="></script>
         <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -45,28 +49,7 @@
                 // se agrega un buscador para el mapa
                 L.Control.geocoder().addTo(map_init);
 
-                // para que la barra de búsqueda de debajo del mapa funcione
-                function geocodeSearch() {
-                    var searchValue = document.getElementById("search-input").value;
-                    if (searchValue !== "") {
-                        L.Control.Geocoder.nominatim().geocode(searchValue, function (results) {
-                            if (results.length > 0) {
-                                var latLng = results[0].center;
-                                map_init.setView(latLng, 13);
-                            } else {
-                                console.log("No se encontraron resultados de geocodificación.");
-                            }
-                        });
-                    }
-                }
-
-                // para que la barra haga la búsqueda al presionar enter
-                document.getElementById('search-input').addEventListener('keypress', function (event) {
-                    if (event.key === 'Enter') {
-                        geocodeSearch();
-                    }
-                });
-
+                /*              ELIMINAR ESTA LíNEA PARA QUE TE DIGA TU UBICACIÓN
                 // se comprueba si el navegador es compatible con geolocalización
                 if (!navigator.geolocation) {
                     console.log("Su navegador no es compatible con geolocalización.");
@@ -74,6 +57,7 @@
                     // se obtiene la ubicación actual del usuario
                     navigator.geolocation.getCurrentPosition(getPosition);
                 }
+                
 
                 // se crean variables que se usarán más adelante
                 var marker, circle, lat, long, accuracy;
@@ -101,30 +85,13 @@
                     // esto no es tan necesario pero por si acaso. luego de obtener la ubicación del usuario, se imprime en la consola
                     console.log("Sus coordenadas son: Latitud: " + lat + " Longitud: " + long + " Precisión: " + accuracy);
                 }
+                                ELIMINAR ESTA LíNEA PARA QUE TE DIGA TU UBICACIÓN            */
             });
 
         </script>
 
-        <p class="texto">Esta es una página web para ayudar tanto al publico nuevo como antiguo con los recorridos
-            de la ciudad de Osorno, mostrando las rutas de los microbuses y paraderos, así ayudando al
-            usuario a encontrar la manera más óptima de llegar a su destino</p>
-        <div class="boton">
-
-            <a class="btn btn-danger" href="/sobre-nosotros" role="button">Saber más</a>
-        </div>
-
-        <div class="busqueda">
-            <input type="text" id="search-input" placeholder="  Buscar">
-            <div class="search-btn">
-                <i class="fa fa-search"></i>
-
-            </div>
-        </div>
-        <div id="map"></div>
     </div>
 
 </body>
 
 </html>
-
-{% endblock %}

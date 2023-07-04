@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mapa pelao</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@1.16.0/dist/Control.Geocoder.js"></script>
+    <style>
+        body {
+            margin: 10px;
+            padding: 0;
+        }
+
+        #map {
+            width: 100%;
+            height: calc(100vh - 20px);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <div id="map" class="mapa-img"></div>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="></script>
+        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // se crea el mapa, con las coordenadas de Osorno como centro y un zoom de 13
+                var map_init = L.map('map', {
+                    center: [-40.558869, -73.176589],
+                    zoom: 13
+                });
+
+                // se usa OpenStreetMap para agregar la imagen al mapa creado
+                var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+                }).addTo(map_init);
+
+                // se agrega un buscador para el mapa
+                L.Control.geocoder().addTo(map_init);
+
+                var paraderos = JSON.parse('{{ stops|tojson|safe }}');
+
+                for (var i = 0; i < paraderos.length; i++) {
+                    var paradero = paraderos[i];
+                    var marker = L.marker([paradero[0], paradero[1]]).addTo(map_init);
+                }
+
+                var latlngs = JSON.parse('{{ ruta1a|tojson|safe }}');
+                var polyline = L.polyline(latlngs, { color: 'red' }).addTo(map_init);
+
+                // zoom the map to the polyline
+                map_init.fitBounds(polyline.getBounds());
+            });
+
+        </script>
+
+    </div>
+
+</body>
+
+</html>

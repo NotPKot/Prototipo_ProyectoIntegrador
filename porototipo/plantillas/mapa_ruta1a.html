@@ -50,18 +50,52 @@
                 // se agrega un buscador para el mapa
                 L.Control.geocoder().addTo(map_init);
 
+                L.Control.geocoder().addTo(map_init);
+                if (!navigator.geolocation) {
+                    console.log("Your browser doesn't support geolocation feature!")
+                } else {
+                    setInterval(() => {
+                        navigator.geolocation.getCurrentPosition(getPosition)
+                    }, 5000);
+                };
+                var marker, circle, lat, long, accuracy;
+
+                function getPosition(position) {
+                    // console.log(position)
+                    lat = position.coords.latitude
+                    long = position.coords.longitude
+                    accuracy = position.coords.accuracy
+
+                    if (marker) {
+                        map_init.removeLayer(marker)
+                    }
+
+                    if (circle) {
+                        map_init.removeLayer(circle)
+                    }
+
+                    marker = L.marker([lat, long])
+                    circle = L.circle([lat, long], { radius: accuracy })
+
+                    var featureGroup = L.featureGroup([marker, circle]).addTo(map_init)
+
+                    map_init.fitBounds(featureGroup.getBounds())
+
                 var paraderos = JSON.parse('{{ stops|tojson|safe }}');
 
                 for (var i = 0; i < paraderos.length; i++) {
                     var paradero = paraderos[i];
-                    var marker = L.marker([paradero[0], paradero[1]]).addTo(map_init);
+                    var marcador = L.marker([paradero[0], paradero[1]]).addTo(map_init);
                 }
 
                 var latlngs = JSON.parse('{{ ruta1a|tojson|safe }}');
                 var polyline = L.polyline(latlngs, { color: 'red' }).addTo(map_init);
 
                 // zoom the map to the polyline
-                map_init.fitBounds(polyline.getBounds());
+                map_init.fitBounds(polyline.getBounds())
+            }
+
+                
             });
 
         </script>

@@ -15,7 +15,17 @@ app = Flask(__name__,template_folder='plantillas',static_folder='estatua')
 # esta ruta va a ser la página principal
 def home():
     # usando el render_template se se importó antes para llamar el .html
-    return render_template("main.html")
+    query1 = "SELECT latitud, longitud from paradero"
+    cursor = connection.cursor()
+    resultado = cursor.execute(query1)
+    resultado = resultado.fetchall()
+
+    query2 = "SELECT latitud, longitud from Ruta WHERE num = '1a'"
+    resultado2 = cursor.execute(query2)
+    resultado2 = resultado2.fetchall()
+    for i in range(len(resultado2)):
+        resultado2[i] = list(resultado2[i])
+    return render_template("main.html", stops = resultado, ruta1a = resultado2)
 
 # que es rutu
 @app.route("/que-es-rutu")
@@ -31,7 +41,7 @@ def about():
 def TyC():
     return render_template("terminos-y-servicios.html")
 
-#'''   ya le puse el mapa a la página principal asi que esto no es necesario   '''
+'''   ya le puse el mapa a la página principal asi que esto no es necesario   '''
 @app.route("/map")
 def map():
     return render_template("casa.html")
@@ -50,7 +60,6 @@ def ruta1a():
     for i in range(len(resultado2)):
         resultado2[i] = list(resultado2[i])
     return render_template("mapa_ruta1a.html", stops = resultado, ruta1a = resultado2)
-
 
 # acá para que la página abra
 if __name__ == "__main__":

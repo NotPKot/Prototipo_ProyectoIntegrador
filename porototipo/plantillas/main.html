@@ -9,17 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RuTu</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" type="text/css" href="estatua/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder@1.16.0/dist/Control.Geocoder.js"></script>
-
-
-
 </head>
 
 <body>
@@ -27,13 +21,13 @@
         <div id="map" class="mapa-img"></div>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-            crossorigin="" float:left></script>
+            crossorigin=""></script>
         <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 // se crea el mapa, con las coordenadas de Osorno como centro y un zoom de 13
                 var map_init = L.map('map', {
-                    center: [-40.57395, -73.13348],
+                    center: [-40.558869, -73.176589],
                     zoom: 13
                 });
 
@@ -61,8 +55,8 @@
                 }
 
                 // para que la barra haga la búsqueda al presionar enter
-                document.getElementById('search-input').addEventListener('keypress', function (event) {
-                    if (event.key === 'Enter') {
+                document.getElementById("search-input").addEventListener("keypress", function (event) {
+                    if (event.key === "Enter") {
                         geocodeSearch();
                     }
                 });
@@ -80,26 +74,35 @@
 
                 // se procesa la posición del usuario
                 function getPosition(position) {
-                    console.log(position);
-                    lat = position.coords.latitude;
-                    long = position.coords.longitude;
-                    accuracy = position.coords.accuracy;
+                    // console.log(position)
+                    lat = position.coords.latitude
+                    long = position.coords.longitude
+                    accuracy = position.coords.accuracy
 
                     if (marker) {
-                        map_init.removeLayer(marker);
+                        map_init.removeLayer(marker)
                     }
 
                     if (circle) {
-                        map_init.removeLayer(circle);
+                        map_init.removeLayer(circle)
                     }
 
-                    marker = L.marker([lat, long]);
-                    circle = L.circle([lat, long], { radius: accuracy });
+                    marker = L.marker([lat, long])
+                    circle = L.circle([lat, long], { radius: accuracy })
 
-                    var featureGroup = L.featureGroup([marker, circle]).addTo(map_init);
+                    var featureGroup = L.featureGroup([marker, circle]).addTo(map_init)
 
-                    // esto no es tan necesario pero por si acaso. luego de obtener la ubicación del usuario, se imprime en la consola
-                    console.log("Sus coordenadas son: Latitud: " + lat + " Longitud: " + long + " Precisión: " + accuracy);
+                    map_init.fitBounds(featureGroup.getBounds())
+
+                    var paraderos = JSON.parse('{{ stops|tojson|safe }}');
+
+                    for (var i = 0; i < paraderos.length; i++) {
+                        var paradero = paraderos[i];
+                        var marcador = L.marker([paradero[0], paradero[1]]).addTo(map_init);
+                    }
+
+                    var latlngs = JSON.parse('{{ ruta1a|tojson|safe }}');
+                    var polyline = L.polyline(latlngs, { color: 'red' }).addTo(map_init);
                 }
             });
 
@@ -120,7 +123,7 @@
 
             </div>
         </div>
-        <div id="map"></div>
+        
     </div>
 
 </body>

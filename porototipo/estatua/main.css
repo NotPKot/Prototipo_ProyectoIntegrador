@@ -43,8 +43,18 @@ estas ultimas no se si están bien, no se como hacer que el flask me pesque la c
 
 .abt-txt {
     position: absolute;
-    font-size: 26px;
-    top: 0px;
+    font-size: 32px;
+    top: 56px;
+}
+
+.abt-title {
+    position: absolute;
+}
+
+.micro-img {
+    position: relative;
+    top: 56px;
+    left: 700px;
 }
 
 .busqueda {
@@ -90,8 +100,8 @@ input {
 
 .TyS {
     position: relative;
-    left: 43px;
-    right: 43px;
+    left: 53px;
+    right: 53px;
     height: 0;
     width: calc(100% - 86px);
     top: 46px;
